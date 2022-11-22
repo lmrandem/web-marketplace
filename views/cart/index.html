@@ -1,0 +1,19 @@
+{{ define "content" }}
+
+<header>
+  <h2>Your Shopping Cart</h2>
+</header>
+
+<div>
+  {{ range .items }}
+  <article>
+    <p>{{ .title }}</p>
+    <p>{{ .price }}</p>
+    <form method="post" action="/cart/{{ .id }}/remove">
+      <button type="submit">Remove</button>
+    </form>
+  </article>
+  {{ end }}
+</div>
+
+{{ end }}

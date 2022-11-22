@@ -1,0 +1,42 @@
+{{ define "content" }}
+
+<header>
+  <h2>Register</h2>
+</header>
+
+<form method="post" action="/register" class="form">
+  <label class="form__label">
+    <span>Name</span>
+    <input name="name" type="text" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Email address</span>
+    <input name="email" type="email" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Password</span>
+    <input name="password" type="password" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Address</span>
+    <input name="address" type="text" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Post code</span>
+    <input name="postCode" type="text" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Place</span>
+    <input name="place" type="text" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Country</span>
+    <input name="country" type="text" class="form__input" />
+  </label>
+  <div class="form__button-container">
+    <a href="/login">Already have an account? Click here to log in!</a>
+    <button type="submit" class="button button--light">Sign up</button>
+  </div>
+</form>
+
+{{ end }}

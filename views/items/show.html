@@ -1,0 +1,15 @@
+{{ define "content" }}
+
+<header>
+  <h2>{{ .item.Title }}</h2>
+</header>
+
+<div>
+  <img src="/uploads/{{ .item.ImageUrl }}" alt="{{ .item.Title }}" />
+  <p>{{ .item.Description }}</p>
+  <form method="post" action="/cart/{{ .item.ID }}/add">
+    <button type="submit">Add to cart</button>
+  </form>
+</div>
+
+{{ end }}

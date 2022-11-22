@@ -1,0 +1,23 @@
+{{ define "content" }}
+
+<header>
+  <h2>Login</h2>
+</header>
+
+<form method="post" action="/login" class="form">
+  <label class="form__label">
+    <span>Email address</span>
+    <input name="email" type="email" class="form__input" />
+  </label>
+  <label class="form__label">
+    <span>Password</span>
+    <input name="password" type="password" class="form__input" />
+  </label>
+  <a href="">Forgotten your password?</a>
+  <div class="form__button-container">
+    <a href="/register">Don't have an account yet? Click here to create one!</a>
+    <button type="submit" class="button button--light">Sign in</button>
+  </div>
+</form>
+
+{{ end }}

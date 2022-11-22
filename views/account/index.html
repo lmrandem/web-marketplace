@@ -1,0 +1,50 @@
+{{ define "content" }}
+
+<header>
+  <h2>Your account</h2>
+</header>
+
+<section>
+  <header>
+    <h3>Your information</h3>
+  </header>
+  <p>Name: {{ .user.Name }}</p>
+  <p>Email: {{ .user.Email }}</p>
+  <p>Address: {{ .user.Address }}</p>
+  <p>Post code: {{ .user.PostCode }}</p>
+  <p>Place: {{ .user.Place }}</p>
+  <p>Country: {{ .user.Country }}</p>
+</section>
+
+<section>
+  <header>
+    <h3>Change password</h3>
+  </header>
+  <form method="post" action="/account/change-password">
+    <label>
+      <span>Old password</span>
+      <input name="password" type="password" />
+    </label>
+    <label>
+      <span>New password</span>
+      <input name="newPassword" type="password" />
+    </label>
+    <label>
+      <span>New password again</span>
+      <input name="newPasswordCheck" type="password" />
+    </label>
+    <button id="changePwButton" type="submit">Change</button>
+  </form>
+</section>
+
+<section>
+  <header>
+    <h3>Delete account</h3>
+  </header>
+  <form method="post" action="/account/delete">
+    <input name="password" type="password" />
+    <button type="submit">Delete</button>
+  </form>
+</section>
+
+{{ end }}

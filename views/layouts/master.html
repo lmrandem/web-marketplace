@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ .title }} - Sustainable Marketplace</title>
+    <link rel="stylesheet" href="assets/main.67e4e77dacb175327d89.css" />
+    <script defer src="assets/main.bb965acf3eb9d9a0e498.js"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>
+        <a href="/" class="page-header__title">Sustainable Marketplace</a>
+      </h1>
+      <form class="search-box" method="get" action="/items">
+        <input
+          id="search-input"
+          name="search"
+          type="search"
+          class="page-header__search-input"
+        />
+        <button type="submit" class="button">Search</button>
+      </form>
+      <div class="page-header__user-container">
+        {{ if .isLoggedIn }}
+        <form id="cart-form" method="get" action="/cart">
+          <button id="cart-btn" type="submit" class="button">Cart</button>
+        </form>
+        <a href="/items/create" class="page-header__link-button">Sell</a>
+        <a href="/account" class="page-header__link-button">Account</a>
+        <form method="post" action="/logout">
+          <button type="submit" class="button">Log out</button>
+        </form>
+        {{ else }}
+        <a href="/login" class="page-header__link">Login</a>
+        <a href="/register" class="page-header__link-button">Register</a>
+        {{ end }}
+      </div>
+    </header>
+    <main class="main">{{ template "content" . }}</main>
+  </body>
+</html>

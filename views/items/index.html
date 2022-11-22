@@ -1,0 +1,28 @@
+{{ define "content" }}
+
+<header class="header">
+  <h2>Items</h2>
+</header>
+
+<div class="item-list">
+  {{ range .items }}
+  <article class="item-card">
+    <img
+      src="/uploads/{{ .ImageUrl }}"
+      alt="{{ .Title }}"
+      loading="lazy"
+      class="item-card__img"
+    />
+    <div class="item-card__content">
+      <header class="item-card__header">
+        <h3>
+          <a class="item-card__title" href="/items/{{ .ID }}">{{ .Title }}</a>
+        </h3>
+      </header>
+      <p class="item-card__price">{{ .Price }}</p>
+    </div>
+  </article>
+  {{ end }}
+</div>
+
+{{ end }}
