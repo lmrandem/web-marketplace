@@ -1,4 +1,8 @@
-{{ define "content" }} {{ $search := .search }} {{ $current := .current }}
+{{ define "content" }}
+
+{{ $current := .current }}
+{{ $search := .search }} 
+{{ $saveData := .saveData }}
 
 <header class="header">
   <h2>Items</h2>
@@ -7,12 +11,14 @@
 <div class="item-list">
   {{ range .items }}
   <article class="item-card">
+    {{ if not $saveData }}
     <img
       src="/uploads/{{ .ImageUrl }}"
       alt="{{ .Title }}"
       loading="lazy"
       class="item-card__img"
     />
+    {{ end }}
     <div class="item-card__content">
       <header class="item-card__header">
         <h3>
@@ -26,14 +32,17 @@
 </div>
 
 <div class="pagination-bar">
-  {{ range $p := .pages }} {{ $active := "" }} {{ if (eq $current $p) }} {{
-  $active = "page-link--active" }} {{ end }}
-  <a
-    class="page-link {{ $active }}"
-    href="/items?search={{ $search }}&page={{ $p }} "
-  >
-    {{ $p }}
-  </a>
+  {{ range $p := .pages }} 
+    {{ $active := "" }}
+    {{ if (eq $current $p) }}
+      {{ $active = "page-link--active" }}
+    {{ end }}
+    <a
+      class="page-link {{ $active }}"
+      href="/items?search={{ $search }}&page={{ $p }} "
+    >
+      {{ $p }}
+    </a>
   {{ end }}
 </div>
 

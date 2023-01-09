@@ -23,6 +23,15 @@
         <button type="submit" class="button">Search</button>
       </form>
       <div class="page-header__user-container">
+        <form id="data-mode-form" method="post" action="/mode">
+          <button class="button">
+            {{ if .saveData }}
+              Data mode
+            {{ else }}
+              Data saver mode
+            {{ end }}
+          </button>
+        </form>
         {{ if .isLoggedIn }}
         <form id="cart-form" method="get" action="/cart">
           <button id="cart-btn" type="submit" class="button">Cart</button>

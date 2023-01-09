@@ -31,6 +31,7 @@ func setupRoutes(r *gin.Engine) {
 	routes.SetCartRoutes(g)
 	routes.SetHomeRoutes(g)
 	routes.SetItemRoutes(g)
+	routes.SetDataModeRoutes(g)
 }
 
 func setupAssetsRoute(r *gin.Engine) {
@@ -52,6 +53,7 @@ func main() {
 	// Middleware
 	r.Use(middleware.ValueMap())
 	r.Use(middleware.Assets())
+	r.Use(middleware.DataMode())
 	r.Use(middleware.IsLoggedIn())
 
 	// Routes
