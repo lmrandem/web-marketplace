@@ -14,7 +14,8 @@ import (
 type AuthController struct{}
 
 func (c *AuthController) LoginPageGET(ctx *gin.Context) {
-	ctx.HTML(http.StatusOK, "auth/login", gin.H{})
+	vals := ctx.GetStringMap("values")
+	ctx.HTML(http.StatusOK, "auth/login", vals)
 }
 
 func (c *AuthController) RegisterPageGET(ctx *gin.Context) {

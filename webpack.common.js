@@ -1,23 +1,30 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path from 'path';
+import * as url from 'url';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-module.exports = {
+export default {
   entry: {
     main: [
-      './public/src/scripts/main.js',
+      './public/src/scripts/main.mjs',
       './public/src/styles/style.css',
     ],
-    cart: './public/src/scripts/cart.js'
   },
   output: {
-    path: path.resolve(__dirname, 'public/dist'),
+    path: path.resolve(url.fileURLToPath(new URL('.', import.meta.url)), 'public/dist')
   },
   module: {
     rules: [
+      {
+        test: /\.(m|)js$/i,
+        use: 'babel-loader'
+      },
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.mjs', '.css']
+  }
 };

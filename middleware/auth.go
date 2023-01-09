@@ -38,5 +38,6 @@ func IsLoggedIn() gin.HandlerFunc {
 		vals := ctx.GetStringMap("values")
 		vals["isLoggedIn"] = session.Get("user") != nil
 		ctx.Set("values", vals)
+		ctx.Next()
 	}
 }

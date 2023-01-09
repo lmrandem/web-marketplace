@@ -2,12 +2,14 @@ package controllers
 
 import (
 	"fmt"
+	"math"
 	"net/http"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"webmarketplace/database"
 	"webmarketplace/models"
+	"webmarketplace/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -19,11 +21,26 @@ func (c *ItemController) ListItemsPageGET(ctx *gin.Context) {
 	vals := ctx.GetStringMap("values")
 
 	var items []models.Item
-	term := ctx.DefaultQuery("search", "")
+	var count int64
+	searchTerm := ctx.DefaultQuery("search", "")
+	currentPage, err := strconv.Atoi(ctx.DefaultQuery("page", "0"))
+	if err != nil {
+		ctx.Redirect(http.StatusBadRequest, "/")
+		return
+	}
+	pageSize := 12
+	offset := (currentPage - 1) * pageSize
 	db := database.DB()
-	db.Where("title LIKE ?", "%"+term+"%").Find(&items)
+	db.Where("title LIKE ?", "%"+searchTerm+"%").
+		Offset(offset).
+		Limit(pageSize).
+		Find(&items).
+		Count(&count)
 
+	vals["search"] = searchTerm
 	vals["items"] = items
+	vals["pages"] = utils.Iterate(1, int64(math.Ceil(float64(count)/float64(pageSize)))+1)
+	vals["current"] = currentPage
 
 	ctx.HTML(http.StatusOK, "items/index", vals)
 }

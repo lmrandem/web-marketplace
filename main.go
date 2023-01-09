@@ -33,6 +33,14 @@ func setupRoutes(r *gin.Engine) {
 	routes.SetItemRoutes(g)
 }
 
+func setupAssetsRoute(r *gin.Engine) {
+	g := r.Group("/assets")
+	g.Use(middleware.CacheControl())
+	{
+		g.Static("", "./public/dist")
+	}
+}
+
 func main() {
 	os.Mkdir("./public/uploads", 0777)
 	setupDatabase()
@@ -43,13 +51,14 @@ func main() {
 
 	// Middleware
 	r.Use(middleware.ValueMap())
-	// r.Use(middleware.HostValue())
+	r.Use(middleware.Assets())
 	r.Use(middleware.IsLoggedIn())
 
+	// Routes
 	setupRoutes(r)
-
-	r.Static("/assets", "./public/dist")
+	setupAssetsRoute(r)
 	r.Static("/uploads", "./uploads")
+
 	r.HTMLRender = ginview.Default()
 
 	r.Run(":8080")

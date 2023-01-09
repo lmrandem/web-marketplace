@@ -118,6 +118,32 @@ body {
   text-decoration: underline;
 }
 
+.pagination-bar {
+  display: flex;
+  gap: 1em;
+  flex-direction: row;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+.page-link {
+  display: block;
+  background-color: #047742;
+  padding: 0.5em 0.8em;
+  border-radius: 50%;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.page-link--active {
+  font-weight: bold;
+  transform: scale(1.2);
+}
+
+.page-link:hover {
+  background-color: #09663b;
+}
+
 .form {
   max-width: 50em;
   display: flex;
