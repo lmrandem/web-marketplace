@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"net/http"
 	"path/filepath"
@@ -23,11 +24,7 @@ func (c *ItemController) ListItemsPageGET(ctx *gin.Context) {
 	var items []models.Item
 	var count int64
 	searchTerm := ctx.DefaultQuery("search", "")
-	currentPage, err := strconv.Atoi(ctx.DefaultQuery("page", "0"))
-	if err != nil {
-		ctx.Redirect(http.StatusBadRequest, "/")
-		return
-	}
+	currentPage, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
 	pageSize := 12
 	offset := (currentPage - 1) * pageSize
 	db := database.DB()
@@ -42,6 +39,7 @@ func (c *ItemController) ListItemsPageGET(ctx *gin.Context) {
 	vals["pages"] = utils.Iterate(1, int64(math.Ceil(float64(count)/float64(pageSize)))+1)
 	vals["current"] = currentPage
 
+	log.Println("Test render items")
 	ctx.HTML(http.StatusOK, "items/index", vals)
 }
 

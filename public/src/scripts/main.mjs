@@ -1,5 +1,8 @@
 (function() {
   async function registerCachingServiceWorker() {
+    if (!navigator.serviceWorker) {
+      return;
+    }
     try {
       await navigator.serviceWorker.register('/caching-service-worker.js');
       console.log('Caching service worker registered!');
@@ -32,7 +35,5 @@
   }
 
   dynamicallyImportCart();
-  if (navigator.serviceWorker) {
-    registerCachingServiceWorker();
-  }
+  registerCachingServiceWorker();
 })();

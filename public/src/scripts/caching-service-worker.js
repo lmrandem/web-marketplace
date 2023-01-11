@@ -34,7 +34,9 @@
   }
 
   self.addEventListener('fetch', async (e) => {
-    console.log(e.request.url);
-    e.respondWith(serverFirst(e));
+    if (e.request.method === "GET") {
+      console.log(e.request.url);
+      e.respondWith(serverFirst(e));
+    }
   });
 })()
