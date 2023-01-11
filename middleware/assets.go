@@ -16,7 +16,9 @@ func Assets() gin.HandlerFunc {
 	for _, f := range dir {
 		filename := f.Name()
 		parts := strings.Split(filename, ".")
-		assetMap[fmt.Sprintf("%s_%s", parts[0], parts[len(parts)-1])] = filename
+		name := strings.ReplaceAll(parts[0], "-", "_")
+		ext := strings.ReplaceAll(parts[len(parts)-1], "-", "_")
+		assetMap[fmt.Sprintf("%s_%s", name, ext)] = filename
 	}
 
 	return func(ctx *gin.Context) {

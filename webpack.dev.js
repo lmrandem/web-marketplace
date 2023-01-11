@@ -5,7 +5,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import common from './webpack.common.js';
 
-export default merge(common, {
+const [mainCommonConfig, swConfig] = common;
+
+const mainConfig = merge(mainCommonConfig, {
   mode: 'development',
   output: {
     filename: '[name].mjs',
@@ -17,3 +19,5 @@ export default merge(common, {
     new CssMinimizerPlugin()
   ]
 });
+
+export default [mainConfig, swConfig];

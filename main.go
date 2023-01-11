@@ -1,6 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"mime"
 	"os"
 	"webmarketplace/database"
 	"webmarketplace/middleware"
@@ -34,11 +38,21 @@ func setupRoutes(r *gin.Engine) {
 	routes.SetDataModeRoutes(g)
 }
 
+func serveFile(name string) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		log.Println(fmt.Sprintf("./public/dist/%s", name))
+		ctx.File(fmt.Sprintf("./public/dist/%s", name))
+	}
+}
+
 func setupAssetsRoute(r *gin.Engine) {
-	g := r.Group("/assets")
-	g.Use(middleware.CacheControl())
-	{
-		g.Static("", "./public/dist")
+	mime.AddExtensionType(".js", "application/javascript")
+	assets, _ := ioutil.ReadDir("./public/dist")
+	for _, asset := range assets {
+		log.Println("ASSET NAME:", asset.Name())
+		if !asset.IsDir() {
+			r.GET(fmt.Sprintf("/%s", asset.Name()), serveFile(asset.Name()))
+		}
 	}
 }
 
